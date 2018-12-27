@@ -1,0 +1,19 @@
+.sales {
+    position: relative;
+    width: 100%;
+    @include flexbox;
+
+    .list-product {
+        width: 40%;
+        padding-right: 30px;
+    }
+
+    .notes {
+        position: relative;
+        width: 60%;
+
+       .table-invoice {
+           width: 100%;
+       }
+    }
+}

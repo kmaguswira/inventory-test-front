@@ -1,5 +1,50 @@
 <template>
-  <div>
+  <div class="root">
+    <header class="header">
+      <div class="container">
+        <div class="columns">
+        <div class="column is-one-third">
+          <div class="title is-uppercase">
+              <nuxt-link to="/">
+                Inventory
+              </nuxt-link>
+          </div>
+        </div>
+        <div class="column is-two-thirds">
+          <div class="columns">
+            <div class="column">
+              <div class="header--menu">
+                <nuxt-link to="/insight/value">
+                  <span>Insight</span>
+                </nuxt-link>
+              </div>
+            </div>
+            <div class="column">
+              <div class="header--menu">
+                <nuxt-link to="/pos">
+                  <span>Sales</span>
+                </nuxt-link>
+              </div>
+            </div>
+            <div class="column">
+              <div class="header--menu">
+                <nuxt-link to="/inventory">
+                  <span>Inventory</span>
+                </nuxt-link>
+              </div>
+            </div>
+            <div class="column">
+              <div class="header--menu">
+                <nuxt-link to="/migrate">
+                  <span>Import Data</span>
+                </nuxt-link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </header>
     <nuxt/>
   </div>
 </template>
@@ -22,34 +67,5 @@ html {
 *:after {
   box-sizing: border-box;
   margin: 0;
-}
-
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
-
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
 }
 </style>

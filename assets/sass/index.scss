@@ -1,0 +1,20 @@
+//vendors
+
+//modules
+@import 'modules/reset';
+@import 'modules/mixins';
+@import 'modules/fonts';
+@import 'modules/variables';
+@import 'modules/global';
+
+//layouts
+@import 'layouts/default';
+
+//components
+
+
+//pages
+@import 'pages/inventory/index';
+@import 'pages/migrate/index';
+@import 'pages/pos/index';
+@import 'pages/insight/index';
