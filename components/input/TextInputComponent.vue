@@ -1,5 +1,6 @@
 <template>
     <div class="field">
+        <label class="label" v-if="label">{{ placeholder }}</label>
         <div class="control">
             <input class="input" :type="typeInput" :placeholder="placeholder" @input="updateValue" :required="required" :value="value">
         </div>
@@ -21,7 +22,11 @@ export default {
             type: Boolean,
             default: false
         },
-        value: null
+        value: null,
+        label: {
+            type: Boolean,
+            default: true
+        }
     },
 
     methods: {

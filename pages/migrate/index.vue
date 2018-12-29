@@ -3,35 +3,13 @@
         <div class="container">
             <header-title-component title="data migration" />
 
-            <div class="field is-grouped">
+            <select-component placeholder="Select a type" :data="types" valueKey="value" valueTitle="title" @update="form.type = $event"/>
+            <file-component placeholder="Select your file" @update="form.file = $event"/>
 
+            <div class="field">
                 <div class="control">
-                    <div class="select">
-                        <select>
-                            <option>Product</option>
-                            <option>Order</option>
-                            <option>Sales</option>
-                        </select>
-                    </div>
+                    <div class="button is-primary" :disabled="load" @click="uploadCsv">Upload</div>
                 </div>
-
-                <div class="control">
-                    <div class="file">
-                        <label class="file-label">
-                            <input class="file-input" type="file" name="resume">
-                            <span class="file-cta">
-                            <span class="file-label">
-                                Choose a file…
-                            </span>
-                            </span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="control">
-                    <div class="button is-primary">Upload</div>
-                </div>
-
             </div>
         </div>
     </section>
@@ -39,7 +17,56 @@
 
 <script>
 import HeaderTitleComponent from '../../components/sections/HeaderTitleComponent'
+import SelectComponent from '../../components/input/SelectComponent'
+import FileComponent from '../../components/input/FileComponent'
+import { crud } from '../../services/crud'
+
 export default {
-  components: { HeaderTitleComponent }
+  components: { HeaderTitleComponent, SelectComponent, FileComponent },
+  data() {
+      return {
+          types: [
+              {
+                  value: 'product',
+                  title: 'Product'
+              },
+              {
+                  value: 'order',
+                  title: 'Order'
+              },
+              {
+                  value: 'sales',
+                  title: 'Sales'
+              }
+          ],
+
+          form: {
+              type: null,
+              file: null
+          },
+
+          load: false
+      }
+  },
+
+  methods: {
+      async uploadCsv() {
+          this.load = true
+          const config = {
+              headers: {'Content-Type': 'multipart/form-data' }
+          }
+
+          const body = new FormData();
+          body.set('type', this.form.type);
+          body.append('file', this.form.file); 
+          try {
+              const data = await crud.post('csv/import', body, config)
+              this.load = false
+              alert("Success")
+          } catch (err) {
+              alert(err)
+          }
+      }
+  }
 }
 </script>

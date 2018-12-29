@@ -1,16 +1,26 @@
 import axios from 'axios';
 
-const apiEndpoint = 'http://localhost:7011/v1/'
+export const apiEndpoint = 'http://localhost:7011/v1/'
+const config = {
+    headers: {'Access-Control-Allow-Origin': '*'}
+};
 
 export const crud = {
     
-    async get(model) {
-        const data = await axios.get(apiEndpoint + model);
+    async get(model, params) {
+        const data = await axios.get(apiEndpoint + model, {
+            params: params,
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            },
+            crossdomain: true
+        });
         return data.data;
     },
 
     async post(model, params, config) {
         const data = await axios.post(apiEndpoint + model, params, config)
+        return data.data
     },
 
     async delete(model) {

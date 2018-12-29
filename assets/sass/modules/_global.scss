@@ -113,3 +113,20 @@ body {
         width: 10%;
     }
 }
+
+.summary {
+    padding-top: 30px;
+    position: relative;
+    width: 100%;
+    @include flexbox;
+
+    .download {
+        padding-left: 30px;
+        @include flexbox;
+        @include align-items(center);
+    }
+}
+
+.disabled {
+    background: $red;
+}

@@ -3,4 +3,8 @@
     text-transform: uppercase;
     font-weight: bold;
     font-size: 16px;
+
+    &.pad-top {
+        padding-top: 100px;
+    }
 }

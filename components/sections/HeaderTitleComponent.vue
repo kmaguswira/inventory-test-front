@@ -1,5 +1,5 @@
 <template>
-    <div class="header-title">
+    <div class="header-title" :class="{'pad-top': top}">
         {{ title }}
     </div>
 </template>
@@ -10,6 +10,11 @@ export default {
         title: {
             type: String,
             default: 'Header Title'
+        },
+
+        top: {
+            type: Boolean,
+            default: false
         }
     }
 }
