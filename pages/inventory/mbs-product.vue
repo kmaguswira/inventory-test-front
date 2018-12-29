@@ -1,7 +1,7 @@
 <template>
   <section class="section">
     <div class="container">
-      <header-tab-title title="Product Inventory"/>
+      <header-tab-title title="MISSING/BROKEN/SAMPLE PRODUCT"/>
       <header-tab-component :content="headerTab"/>
 
       <div class="field is-grouped">
@@ -12,11 +12,6 @@
         <div class="control">
           <div class="button button-search">Search</div>
         </div>
-        <div class="control">
-          <div class="button button-search is-info">
-            <nuxt-link to="/inventory/create">Create</nuxt-link>
-          </div>
-        </div>
       </div>
 
       <div class="list-box">
@@ -26,24 +21,17 @@
               <td>SKU</td>
               <td>Name</td>
               <td>Total</td>
-              <td colspan="2">Action</td>
+              <td>Type</td>
+              <td>Note</td>
             </tr>
           </thead>
           <tbody>
             <tr v-for="product in filteredItems" :key="product._id">
-              <td>{{ product.sku }}</td>
-              <td>{{ product.name }}</td>
+              <td>{{ product.product.sku }}</td>
+              <td>{{ product.product.name }}</td>
               <td>{{ product.quantity }}</td>
-              <td>
-                <div class="button is-primary is-small" :disabled="load">
-                  <nuxt-link :to="'/inventory/edit/' + product.ID">Edit</nuxt-link>
-                </div>
-                <div
-                  class="button is-danger is-small"
-                  @click="deleteProduct(product.ID)"
-                  :disabled="load"
-                >Delete</div>
-              </td>
+              <td>{{ product.type }}</td>
+              <td>{{ product.note }}</td>
             </tr>
           </tbody>
         </table>
@@ -77,9 +65,9 @@ export default {
           url: '/inventory/order'
         }
       ],
-      load: false,
+
       products: null,
-      search: ''
+      search: ""
     }
   },
 
@@ -88,9 +76,11 @@ export default {
   },
   computed: {
     filteredItems() {
-      if (this.products) {
+      if(this.products){
         return this.products.filter(item => {
-          return item.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+          if(item.product.name) {
+            return item.product.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+          }
         })
       }
     }
@@ -98,23 +88,8 @@ export default {
 
   methods: {
     async getProduct() {
-      this.products = await crud.get('product/all')
-    },
-
-    async deleteProduct(id) {
-      if (confirm('Are you sure?')) {
-        this.load = true
-        try {
-          const data = await crud.delete('product/delete/' + id)
-          this.getProduct()
-          this.load = false
-          alert('success')
-        } catch (err) {
-          this.load = false
-          alert('error')
-        }
-      }
+      this.products = await crud.get('product-out/all?where={"type<>":"Sales"}')
     }
-  }
+  },
 }
 </script>

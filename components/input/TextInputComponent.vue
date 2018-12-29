@@ -2,7 +2,7 @@
     <div class="field">
         <label class="label" v-if="label">{{ placeholder }}</label>
         <div class="control">
-            <input class="input" :type="typeInput" :placeholder="placeholder" @input="updateValue" :required="required" :value="value">
+            <input class="input" :type="typeInput" :placeholder="placeholder" @input="updateValue" :required="required" :value="value" :disabled="disabled">
         </div>
     </div>
 </template>
@@ -26,7 +26,8 @@ export default {
         label: {
             type: Boolean,
             default: true
-        }
+        },
+        disabled: false,
     },
 
     methods: {

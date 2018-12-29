@@ -7,7 +7,7 @@
             <text-input-component placeholder="Quantity" typeInput="number" @update="form.quantity = $event" />
             <text-input-component placeholder="SKU" @update="form.sku = $event" />
 
-            <button class="button" @click="createProduct">
+            <button class="button" @click="createProduct" :disabled="load">
                 Create
             </button>
         </div>
@@ -28,15 +28,23 @@ export default {
                 name: null,
                 quantity: null,
                 sku: null
-            }
+            },
+            load: false
         }
     },
 
     methods: {
         async createProduct() {
+            this.load = true
             this.form.quantity = parseInt(this.form.quantity);
-            const data = await crud.post('product/create', this.form);
-            console.log("data", data)
+            try {
+                const data = await crud.post('product/create', this.form);
+                this.load = false
+                alert("success")
+            } catch(err) {
+                this.load = false
+                alert("error")
+            }
         },
     }
 

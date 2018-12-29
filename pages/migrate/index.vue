@@ -62,9 +62,10 @@ export default {
           try {
               const data = await crud.post('csv/import', body, config)
               this.load = false
-              alert("Success")
+              alert("success")
           } catch (err) {
-              alert(err)
+              this.load = false
+              alert("error")
           }
       }
   }
