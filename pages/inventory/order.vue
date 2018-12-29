@@ -1,26 +1,25 @@
 <template>
-  <section class="container">
-      <h1>Catatan barang masuk</h1>
-    <div class="inventory">
-        <div class="columns tab">
-            <div class="column is-half">
-                <div class="title is-5">
-                    <nuxt-link to="/inventory">
-                        Inventory
-                    </nuxt-link>
-                </div>
+  <section class="section">
+    <div class="container">
+        <header-tab-title title="Inventory Order" />
+        <header-tab-component :content="headerTab"/>
+
+        <div class="field is-grouped">
+
+            <div class="control is-expanded">
+                <input class="input search-box-input" placeholder="search by name">
             </div>
-            <div class="column is-half">
-                <div class="title is-5 is-right">
-                    <nuxt-link to="/inventory/order">
-                        Order
-                    </nuxt-link>
-                </div>
+
+            <div class="control">
+            <div class="button button-search ">Search</div>
             </div>
-        </div>
-        <div class="search-box">
-            <input class="input search-box-input" placeholder="search by name">
-            <div class="button button-search is-uppercase">search</div>
+            <div class="control">
+            <div class="button button-search is-info">
+                <nuxt-link to="/pos">
+                    Create
+                </nuxt-link>
+            </div>
+            </div>
         </div>
         <div class="list-box">
             <table class="table table-list">
@@ -33,7 +32,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr v-for="order in orders" :key="order.ID">
                         <td>idsku</td>
                         <td>Inventory name</td>
                         <td>total</td>
@@ -53,7 +52,38 @@
 </template>
 
 <script>
+import HeaderTabComponent from '../../components/sections/HeaderTabComponent'
+import HeaderTabTitle from '../../components/sections/HeaderTitleComponent'
+import { crud } from '../../services/crud.js'
+
 export default {
-  components: {}
+  components: {HeaderTabComponent, HeaderTabTitle },
+  data() {
+      return {
+          headerTab: [
+              {
+                  title: 'Product',
+                  url: '/inventory'
+              },
+
+              {
+                  title: 'Order',
+                  url: '/inventory/order'
+              }
+          ],
+          orders: null
+      }
+  },
+
+  mounted() {
+      this.getOrders();
+  },
+
+  methods: {
+      async getOrders() {
+          this.orders = await crud.get('order/all');
+          console.log("this.orders", this.orders)
+      }
+  }
 }
 </script>

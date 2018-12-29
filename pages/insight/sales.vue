@@ -1,25 +1,9 @@
 <template>
-  <section class="container">
-    <div class="insight">
-        <div>
-          report penjualan barang
-        </div>
-        <div class="columns tab">
-            <div class="column is-half">
-                <div class="title is-5">
-                    <nuxt-link to="/insight/value">
-                        Value
-                    </nuxt-link>
-                </div>
-            </div>
-            <div class="column is-half">
-                <div class="title is-5 is-right">
-                    <nuxt-link to="/insight/sales">
-                        Sales
-                    </nuxt-link>
-                </div>
-            </div>
-        </div>
+  <section class="section">
+    <div class="container">
+        <header-tab-title title="Report penjualan" />
+        <header-tab-component :content="headerTab"/>
+
         <div class="date-range-box">
             <input class="input date-range-input" placeholder="start date">
             <input class="input date-range-input" placeholder="end date">            
@@ -55,7 +39,24 @@
 </template>
 
 <script>
+import HeaderTabComponent from '../../components/sections/HeaderTabComponent'
+import HeaderTabTitle from '../../components/sections/HeaderTitleComponent'
 export default {
-  components: {}
+  components: { HeaderTabComponent, HeaderTabTitle },
+  data() {
+      return {
+          headerTab: [
+              {
+                  title: 'Value',
+                  url: '/insight/value'
+              },
+
+              {
+                  title: 'Sales',
+                  url: '/insight/sales'
+              }
+          ]
+      }
+  }
 }
 </script>
