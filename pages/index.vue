@@ -10,6 +10,10 @@
 
 <script>
 export default {
-  components: {}
+  components: {},
+
+  created() {
+    this.$router.push({ path: '/insight/value' })
+  }
 }
 </script>
